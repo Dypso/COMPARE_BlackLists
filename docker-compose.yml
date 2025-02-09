@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  blacklist-api:
+    build:
+      context: ./src_net/BlacklistApi
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Redis=redis:6379
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redislabs/redismod:latest
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  bombardier:
+    build:
+      context: ./src_net/BombardierTests
+      dockerfile: Dockerfile
+    depends_on:
+      blacklist-api:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./test-results:/tests/results
+    command: ["./run_tests.sh"]

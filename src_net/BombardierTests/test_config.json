@@ -1,0 +1,60 @@
+{
+  "scenarios": [
+    {
+      "name": "BloomFilter",
+      "endpoint": "/api/bloomfilter/validate",
+      "concurrencyLevels": [100, 1000, 10000],
+      "duration": "30s",
+      "method": "POST",
+      "payloads": [
+        {"type": "random", "emvId": "4532789012341234"},
+        {"type": "sequential", "emvId": "0000000000000001"},
+        {"type": "pattern", "emvId": "4532000000001234"},
+        {"type": "blacklisted", "emvId": "4532111111111234"},
+        {"type": "non_blacklisted", "emvId": "4532999999991234"}
+      ]
+    },
+    {
+      "name": "CuckooFilter",
+      "endpoint": "/api/cuckoofilter/validate",
+      "concurrencyLevels": [100, 1000, 10000],
+      "duration": "30s",
+      "method": "POST",
+      "payloads": [
+        {"type": "random", "emvId": "4532789012341234"},
+        {"type": "sequential", "emvId": "0000000000000001"},
+        {"type": "pattern", "emvId": "4532000000001234"},
+        {"type": "blacklisted", "emvId": "4532111111111234"},
+        {"type": "non_blacklisted", "emvId": "4532999999991234"}
+      ]
+    },
+    {
+      "name": "UltraFast",
+      "endpoint": "/api/ultrafast/validate",
+      "concurrencyLevels": [100, 1000, 10000],
+      "duration": "30s",
+      "method": "POST",
+      "payloads": [
+        {"type": "random", "emvId": "4532789012341234"},
+        {"type": "sequential", "emvId": "0000000000000001"},
+        {"type": "pattern", "emvId": "4532000000001234"},
+        {"type": "blacklisted", "emvId": "4532111111111234"},
+        {"type": "non_blacklisted", "emvId": "4532999999991234"}
+      ]
+    },
+    {
+      "name": "TwoLevelCache",
+      "endpoint": "/api/twolevelcache/validate",
+      "concurrencyLevels": [100, 1000, 10000],
+      "duration": "30s",
+      "method": "POST",
+      "payloads": [
+        {"type": "random", "emvId": "4532789012341234"},
+        {"type": "sequential", "emvId": "0000000000000001"},
+        {"type": "pattern", "emvId": "4532000000001234"},
+        {"type": "blacklisted", "emvId": "4532111111111234"},
+        {"type": "non_blacklisted", "emvId": "4532999999991234"}
+      ]
+    }
+  ]
+}
